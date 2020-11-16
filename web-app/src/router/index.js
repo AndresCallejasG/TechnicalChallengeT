@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import LoadData from '../views/LoadData.vue'
 import Customers from '../views/Customers.vue'
 import CustomerDetail from '../views/CustomerDetail.vue'
 import Page404 from '../views/Page404.vue'
@@ -37,11 +38,20 @@ const routes = [
     }
   },
   {
-    path: '/customer-detail/:customer_id',
+    path: '/customers/:customer_id',
     name: 'CustomerDetail',
     components: {
       header: AppHeader,
       default: CustomerDetail,
+      footer: AppFooter
+    }
+  },
+  {
+    path: '/load-data',
+    name: 'LoadData',
+    components: {
+      header: AppHeader,
+      default: LoadData,
       footer: AppFooter
     }
   },

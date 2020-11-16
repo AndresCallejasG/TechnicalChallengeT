@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    customers
+    Load Data
   </v-main>
 </template>
 
@@ -8,6 +8,6 @@
 // @ is an alias to /src
 
 export default {
-  name: 'Customers',
+  name: 'LoadData',
 }
 </script>

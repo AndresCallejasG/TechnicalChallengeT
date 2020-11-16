@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <router-view vcol name="header"/>
-      <router-view></router-view>
+      <router-view name="header"/>
+      <router-view style="padding-bottom:20vh"></router-view>
       <router-view name="footer"/>
     </v-main>
   </v-app>

@@ -6,17 +6,16 @@
     >
       <div class="d-flex align-center">
         <v-img
-          alt="Vuetify Logo"
+          alt="TheShop Logo"
           class="shrink mr-2"
           contain
           src="https://i.imgur.com/RRelP7u.png"
           transition="scale-transition"
           width="40"
-          background="white"
         />
 
         <v-img
-          alt="Vuetify Name"
+          alt="TheShop Name"
           class="shrink mt-1 hidden-sm-and-down"
           contain
           min-width="100"
@@ -26,15 +25,31 @@
       </div>
 
       <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      <router-link to="/">
+        <v-btn
+          target="_blank"
+          text
+        >
+          
+          <span>Home</span>
+        </v-btn>
+      </router-link>
+      <router-link to="/load-data">
+        <v-btn
+          target="_blank"
+          text
+        >
+          <span>Load Data</span>
+        </v-btn>
+      </router-link>
+      <router-link to="/customers">
+        <v-btn
+          target="_blank"
+          text
+        >
+          <span>Dashboard</span>
+        </v-btn>
+      </router-link>
     </v-app-bar>
 </template>
 
