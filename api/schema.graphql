@@ -1,0 +1,23 @@
+""" Schema types that allow: 
+list customers and their transactions history, other customer with the same ip and some product recommedations """
+
+type Product {
+    productID: String! @id
+    name: String
+    price: Int
+}
+
+type Customer {
+    customerID: String! @id
+    name: String
+    age: Int
+    transactions: [Transaction] @hasInverse(field: buyer)
+}
+
+type Transaction {
+    transactionID: String! @id
+    buyer: Customer!
+    ip: String @search(by: [hash])
+    device: String
+    products: [Product!]!
+}
