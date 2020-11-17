@@ -23,7 +23,7 @@ var (
 
 // Transaction struct to represent a Transaction
 type Transaction struct {
-	TransactionID string   `json:"transaction_id"`
+	TransactionID string   `json:"id"`
 	Buyer         string   `json:"buyer"`
 	Device        string   `json:"device"`
 	IP            string   `json:"ip"`

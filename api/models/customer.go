@@ -17,7 +17,7 @@ var (
 
 // Customer struct to represent a customer
 type Customer struct {
-	CustomerID string `json:"customer_id"`
+	CustomerID string `json:"id"`
 	Name       string `json:"name"`
 	Age        int    `json:"age"`
 }

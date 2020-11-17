@@ -17,7 +17,7 @@ var (
 
 // Product struct to represent a Product
 type Product struct {
-	ProductID string `json:"product_id"`
+	ProductID string `json:"id"`
 	Name      string `json:"name"`
 	Price     int    `json:"price"`
 }
