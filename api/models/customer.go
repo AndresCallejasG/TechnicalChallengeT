@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"strconv"
 )
 
 var (
@@ -43,4 +44,16 @@ func NewCustomer(customerID, name string, age int) (*Customer, error) {
 	}
 
 	return newCustomer, nil
+}
+
+//CustomerInputStr return the str representation to input in GraphQL
+func (cust *Customer) CustomerInputStr() string {
+
+	var str string
+
+	str = "{\"customerID\":\"" + cust.CustomerID +
+		"\",\"name\":\"" + cust.Name +
+		"\",\"age\":" + strconv.Itoa(cust.Age) + "}"
+
+	return str
 }

@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"strconv"
 )
 
 var (
@@ -43,4 +44,16 @@ func NewProduct(productID, name string, price int) (*Product, error) {
 	}
 
 	return newProduct, nil
+}
+
+//ProductInputStr return the str representation to input in GraphQL
+func (prod *Product) ProductInputStr() string {
+
+	var str string
+
+	str = "{\"productID\":\"" + prod.ProductID +
+		"\",\"name\":\"" + prod.Name +
+		"\",\"price\":" + strconv.Itoa(prod.Price) + "}"
+
+	return str
 }

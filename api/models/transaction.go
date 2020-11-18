@@ -17,7 +17,7 @@ var (
 	// ErrEmptyTranIP if the ip is a negative int
 	ErrEmptyTranIP = errors.New("'ip' cannot be empty")
 
-	// ErrInvalidTranProducts if products is null or empty
+	// ErrInvalidTranProducts if Products is null or empty
 	ErrInvalidTranProducts = errors.New("'products' must have at list 1 product")
 )
 
@@ -61,4 +61,26 @@ func NewTransaction(transactionID, buyer, device, ip string, products []string) 
 	}
 
 	return newTransaction, nil
+}
+
+//TransactionInputStr return the str representation to input in GraphQL
+func (tran *Transaction) TransactionInputStr() string {
+
+	var str string
+
+	str = "{\"transactionID\":\"" + tran.TransactionID +
+		"\",\"buyer\":{\"customerID\":\"" + tran.Buyer +
+		"\"},\"ip\":\"" + tran.IP + "\",\"device\":\"" +
+		tran.Device + "\",\"products\":["
+
+	for i, elem := range tran.Products {
+		if i != 0 {
+			str += ","
+		}
+		str = str + "{\"productID\":\"" + elem + "\"}"
+	}
+
+	str = str + "]}"
+
+	return str
 }
