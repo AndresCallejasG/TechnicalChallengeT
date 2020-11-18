@@ -16,8 +16,8 @@
   
   
           <v-btn
-            v-for="item in social"
-            :key="item"
+            v-for="(item, i) in social"
+            :key="i"
             class="mx-1"
             :href= "item.url"
             dark
