@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+	"strconv"
+	"time"
 
 	"TechnicalChallengeT/api/loaders"
 
@@ -28,24 +31,41 @@ func main() {
 
 func loadData(w http.ResponseWriter, r *http.Request) {
 
-	err := loaders.LoadCustomerData("")
+	dateUnix := r.URL.Query().Get("date")
+
+	if dateUnix != "" {
+		const layout = "2006-01-02"
+
+		t, err := time.Parse(layout, dateUnix)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		dateUnix = strconv.Itoa(int(t.Unix()))
+	}
+
+	// fmt.Println(dateUnix)
+
+	err := loaders.LoadCustomerData(dateUnix)
 	if err != nil {
 		fmt.Print(err)
 	}
 
-	fmt.Println("-----------------------------------")
+	fmt.Println("-------------Customers Loaded----------------------")
 
-	err = loaders.LoadProductData("")
+	err = loaders.LoadProductData(dateUnix)
 	if err != nil {
 		fmt.Print(err)
 	}
 
-	fmt.Println("-----------------------------------")
+	fmt.Println("----------------Products Loaded-------------------")
 
-	err = loaders.LoadTransactionData("")
+	err = loaders.LoadTransactionData(dateUnix)
 	if err != nil {
 		fmt.Print(err)
 	}
+
+	fmt.Println("----------------Transaction Loaded-------------------")
 
 	w.Write([]byte("Data fetched successfully"))
 }

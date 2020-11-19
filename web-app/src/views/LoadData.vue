@@ -22,6 +22,7 @@
             width="100%"
             color="primary"
             class="mt-5 white--text"
+            v-on:click="loadDataReq()"
           >
           Upload
             <v-icon
@@ -47,6 +48,31 @@ export default {
       return {
         picker: null,
       }
-    },
+  },
+  methods: {
+    loadDataReq(){
+      var axios = require('axios');
+      var date
+      if (this.picker == null){
+          date = ""
+      }else{
+        date = this.picker
+      }
+      var config = {
+        method: 'post',
+        url: 'http://localhost:3000/v1/load?date=' + date,
+        headers: { }
+      };
+
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+
+  }
 }
 </script>
