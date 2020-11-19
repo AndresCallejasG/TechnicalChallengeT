@@ -47,7 +47,7 @@ export default {
       this.fetchCustomers()
   },
   methods: {
-      fetchCustomers(){
+      async fetchCustomers(){
         var axios = require('axios');
         var data = JSON.stringify({
         query: `query {
@@ -62,20 +62,22 @@ export default {
 
         var config = {
         method: 'post',
-        url: 'localhost:8080/graphql/',
+        url: 'http://localhost:8080/graphql',
         headers: { 
             'Content-Type': 'application/json'
         },
         data : data
         };
 
-        axios(config)
+        this.customers = await axios(config)
         .then(function (response) {
-            this.customers = (JSON.stringify(response.data));
+            //var x = JSON.stringify(response.data)
+            return response.data.data.queryCustomer;
         })
         .catch(function (error) {
         console.log(error);
-        });          
+        });  
+
       }
   }
   

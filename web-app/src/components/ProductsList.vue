@@ -29,8 +29,40 @@ export default {
           {productID: "25eaefff", name: "Organic broth", price: 444},        
       ]
   }),
+  mounted() {
+      this.fetchProducts()
+  },
   methods: {
-      fetchProducts(){
+      async fetchProducts(){
+        var axios = require('axios');
+        var data = JSON.stringify({
+        query: `query {
+        queryProduct {
+            productID
+            name
+            price
+        }
+        }`,
+        variables: {}
+        });
+
+        var config = {
+        method: 'post',
+        url: 'http://localhost:8080/graphql',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : data
+        };
+
+        this.products = await axios(config)
+        .then(function (response) {
+            //var x = JSON.stringify(response.data)
+            return response.data.data.queryProduct;
+        })
+        .catch(function (error) {
+        console.log(error);
+        });
           
       }
   }
