@@ -28,7 +28,7 @@ func LoadTransactionData(date string) error {
 		}
 		tranStr += elem.TransactionInputStr()
 
-		// Limit that should be controled better
+		// Limit that should be controled better -> problems with my pc performance
 		if i == 200 {
 			break
 		}

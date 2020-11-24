@@ -18,8 +18,8 @@ func TestNewTransaction(t *testing.T) {
 
 	c.Equal("00005fb1c100", tran.TransactionID)
 	c.Equal("76189a41", tran.Buyer)
-	c.Equal("92.69.220.153", tran.Device)
-	c.Equal("mac", tran.IP)
+	c.Equal("92.69.220.153", tran.IP)
+	c.Equal("mac", tran.Device)
 	c.Equal([]string{"12e568e0", "9a2841a3"}, tran.Products)
 
 	c.NoError(err)

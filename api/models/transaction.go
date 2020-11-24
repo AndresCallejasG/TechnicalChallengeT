@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 )
 
 var (
@@ -31,7 +32,7 @@ type Transaction struct {
 }
 
 // NewTransaction constructor
-func NewTransaction(transactionID, buyer, device, ip string, products []string) (*Transaction, error) {
+func NewTransaction(transactionID, buyer, ip, device string, products []string) (*Transaction, error) {
 	if transactionID == "" {
 		return nil, ErrEmptyTranID
 	}
@@ -82,5 +83,6 @@ func (tran *Transaction) TransactionInputStr() string {
 
 	str = str + "]}"
 
+	fmt.Println(str)
 	return str
 }
