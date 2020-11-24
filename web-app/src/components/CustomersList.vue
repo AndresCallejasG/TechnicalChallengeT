@@ -1,15 +1,21 @@
 <template>
-    <v-component>        
+    <v-component>
+        <v-skeleton-loader
+          v-show="loadingCustomers"
+          type="card-heading, list-item-three-line, card-heading, list-item-three-line"
+        >
+        </v-skeleton-loader>   
         <v-card
             v-for="(card, i) in customers"
             :key="i"
             elevation="2"
             outlined
+            @click="setSelectedCustomer(card.customerID)"
         >
-            <v-card-title>{{ card.name }}</v-card-title>
+            <v-card-title >{{ card.name }}</v-card-title>
             <v-card-subtitle>ID {{card.customerID}} - {{ card.age }} years</v-card-subtitle>
 
-        </v-card>
+        </v-card>        
     </v-component>
     
 </template>
@@ -20,34 +26,17 @@
 export default {
   name: 'CustomersList',
   data: () => ({
-      customers : [
-          {customerID: "121212", name: "Julian Franco", age: 28},
-          {customerID: "288923", name: "Andres Callejas", age: 25},
-          {customerID: "929833", name: "Alejandro Ramirez", age: 18},
-          {customerID: "209370", name: "Santiago Castillo", age: 25},
-          {customerID: "121212", name: "Julian Franco", age: 28},
-          {customerID: "288923", name: "Andres Callejas", age: 25},
-          {customerID: "929833", name: "Alejandro Ramirez", age: 18},
-          {customerID: "209370", name: "Santiago Castillo", age: 25},
-          {customerID: "121212", name: "Julian Franco", age: 28},
-          {customerID: "288923", name: "Andres Callejas", age: 25},
-          {customerID: "929833", name: "Alejandro Ramirez", age: 18},
-          {customerID: "209370", name: "Santiago Castillo", age: 25},
-          {customerID: "121212", name: "Julian Franco", age: 28},
-          {customerID: "288923", name: "Andres Callejas", age: 25},
-          {customerID: "929833", name: "Alejandro Ramirez", age: 18},
-          {customerID: "209370", name: "Santiago Castillo", age: 25},
-          {customerID: "121212", name: "Julian Franco", age: 28},
-          {customerID: "288923", name: "Andres Callejas", age: 25},
-          {customerID: "929833", name: "Alejandro Ramirez", age: 18},
-          {customerID: "209370", name: "Santiago Castillo", age: 25},
-      ]
+      customers : [],
+      loadingCustomers: true
   }),
     mounted() {
-      this.fetchCustomers()
+    this.fetchCustomers()
+    
+  },
+  crated(){
   },
   methods: {
-      async fetchCustomers(){
+        async fetchCustomers(){
         var axios = require('axios');
         var data = JSON.stringify({
         query: `query {
@@ -76,10 +65,15 @@ export default {
         })
         .catch(function (error) {
         console.log(error);
-        });  
-
+        });
+         
+        this.loadingCustomers = false
+      },
+      setSelectedCustomer(customerID){
+          this.$store.dispatch('SetSelectedCustomer', customerID)
+          this.$store.dispatch('FetchSelectedTransactions')
+          console.log(customerID)
       }
-  }
-  
+  }  
 }
 </script>

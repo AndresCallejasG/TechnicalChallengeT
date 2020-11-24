@@ -1,6 +1,15 @@
 <template>
     <v-component>
-        TransactionList
+        <v-skeleton-loader
+          v-show="loading"
+          type="card-heading, list-item-three-line, card-heading, list-item-three-line"
+        >
+        </v-skeleton-loader>
+        <v-skeleton-loader
+          v-show="loading"
+          type="card-heading, list-item-three-line, card-heading, list-item-three-line"
+        >
+        </v-skeleton-loader>  
         <v-card
             v-for="(tran, i) in transactions"
             :key="i"
@@ -45,30 +54,26 @@
 
 <script>
 
+//import { mapState } from 'vuex';
 
 export default {
   name: 'TransactionsList',
   data: () => ({
-      show: false,
-      transactions : [
-          {transactionID: "121212", ip: "129.123.44.234", device: "Linux", 
-          products: [{name:"CocaCola", price: 5}, {name:"Juice", price: 10}, {name:"Best Item ever", price: 200}]},
-          {transactionID: "121212", ip: "129.123.44.234", device: "Linux",
-          products: [{name:"CocaCola", price: 5}, {name:"Juice", price: 10}]},
-          {transactionID: "121212", ip: "129.123.44.234", device: "Linux", 
-          products: [{name:"CocaCola", price: 5}, {name:"Juice", price: 10}, {name:"Best Item ever", price: 200}]},
-          {transactionID: "121212", ip: "129.123.44.234", device: "Linux", 
-          products: [{name:"CocaCola", price: 5}, {name:"Juice", price: 10}, {name:"Best Item ever", price: 200}]},
-          {transactionID: "121212", ip: "129.123.44.234", device: "Linux", 
-          products: [{name:"CocaCola", price: 5}, {name:"Juice", price: 10}, {name:"Best Item ever", price: 200}]},
-          
-      ]
+      show: false
   }),
-  methods: {
-      fetchCustomers(){
-          
+  computed: {
+      transactions(){
+          return this.$store.state.transactions
+      },
+      loading(){
+          var tr = this.$store.state.transactions.length
+
+          if (tr === 0) {
+              return true
+          }
+
+          return false
       }
-  }
-  
+  }    
 }
 </script>

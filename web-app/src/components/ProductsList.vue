@@ -1,5 +1,10 @@
 <template>
-   <v-component>        
+   <v-component>
+       <v-skeleton-loader
+          v-show="loading"
+          type="card-heading, list-item-three-line, card-heading, list-item-three-line"
+        >
+        </v-skeleton-loader>        
         <v-card
             v-for="(prod, i) in products"
             :key="i"
@@ -29,42 +34,24 @@ export default {
           {productID: "25eaefff", name: "Organic broth", price: 444},        
       ]
   }),
-  mounted() {
-      this.fetchProducts()
+  created() {
+      this.$store.dispatch('FetchProductRecommendations')
   },
-  methods: {
-      async fetchProducts(){
-        var axios = require('axios');
-        var data = JSON.stringify({
-        query: `query {
-        queryProduct {
-            productID
-            name
-            price
-        }
-        }`,
-        variables: {}
-        });
+  computed: {
+      products(){
+          return this.$store.state.productRecommendations
+      },
+      loading(){
+          var tr = this.$store.state.productRecommendations.length
 
-        var config = {
-        method: 'post',
-        url: 'http://localhost:8080/graphql',
-        headers: { 
-            'Content-Type': 'application/json'
-        },
-        data : data
-        };
-
-        this.products = await axios(config)
-        .then(function (response) {
-            //var x = JSON.stringify(response.data)
-            return response.data.data.queryProduct;
-        })
-        .catch(function (error) {
-        console.log(error);
-        });
-          
+          if (tr === 0) {
+              return true
+          }
+          return false
       }
+  },  
+  methods: {
+      
   }
   
 }
