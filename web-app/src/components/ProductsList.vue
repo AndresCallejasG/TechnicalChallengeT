@@ -23,17 +23,6 @@
 
 export default {
   name: 'ProductsList',
-  data: () => ({
-      products : [
-          {productID: "25eaefff", name: "Organic broth", price: 444},
-          {productID: "25eaefff", name: "Organic broth", price: 444},
-          {productID: "25eaefff", name: "Organic broth", price: 444},
-          {productID: "25eaefff", name: "Organic broth", price: 444},
-          {productID: "25eaefff", name: "Organic broth", price: 444},
-          {productID: "25eaefff", name: "Organic broth", price: 444},
-          {productID: "25eaefff", name: "Organic broth", price: 444},        
-      ]
-  }),
   created() {
       this.$store.dispatch('FetchProductRecommendations')
   },
