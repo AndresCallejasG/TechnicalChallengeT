@@ -2,7 +2,6 @@ package models
 
 import (
 	"errors"
-	"fmt"
 )
 
 var (
@@ -83,6 +82,5 @@ func (tran *Transaction) TransactionInputStr() string {
 
 	str = str + "]}"
 
-	fmt.Println(str)
 	return str
 }

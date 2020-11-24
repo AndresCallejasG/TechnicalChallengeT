@@ -8,7 +8,7 @@ Technical Challenge - Engineering
 * GraphQL API to conect all the information (customers, products and transactions) as a graph in Dgraph, that also allows queries and mutations
 * Web app build in Vue.js to load and visualize information to/from the GraphQL API
 
-## How to use
+## How to use (Run apis before web-app)
 * api/README.md
 * web-app/README.md
 
