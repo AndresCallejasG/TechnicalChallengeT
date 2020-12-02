@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     selectedCustomerID: "",
+    loadingTransactions: false,
     transactions: [],
     productRecommendations: [],
     sameIpCustomers: []
@@ -22,13 +23,17 @@ export default new Vuex.Store({
     },
     SetSameIpCustomers(state, sameIpList){
       state.sameIpCustomers = sameIpList
-    }
+    },
+    SetLoadingTransactions(state, flag){
+      state.loadingTransactions = flag
+    },
   },
   actions: {
     SetSelectedCustomer(context, customerID){
       context.commit('SetSelectedCustomer', customerID)
     },
     async FetchSelectedTransactions(context){
+      context.commit('SetLoadingTransactions', true)
       var axios = require('axios');
       var data = JSON.stringify({
       query: `query ($custID: String!) {
@@ -65,7 +70,8 @@ export default new Vuex.Store({
       .catch(function (error) {
         console.log(error);
       });
-      
+
+      context.commit('SetLoadingTransactions', false)
       context.commit('SetTransactions', trans)
 
     },
@@ -102,11 +108,47 @@ export default new Vuex.Store({
 
       context.commit('SetProductRecommendations', prods)
     },
-    /* async FetchSameIp(context, ip){
+    async FetchSameIp(context, ip){
       var axios = require('axios');
+
+      var data = JSON.stringify({
+        query: `query ($ip: String!) {
+        queryTransaction(filter: {
+            ip:{
+                eq: $ip
+            }
+        }){
+            device
+            buyer{
+                customerID
+                name
+                age
       
-      context.commit('SetProductRecommendations', sameip)
-    }, */
+            }
+        }
+      }`,
+        variables: {"ip": ip}
+      });
+
+      var config = {
+        method: 'post',
+        url: 'http://localhost:8080/graphql',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : data
+        };
+  
+      const sameip = await axios(config)
+        .then(function (response) {
+            return response.data.data.queryTransaction;
+        })
+        .catch(function (error) {
+        console.log(error);
+        });
+      
+      context.commit('SetSameIpCustomers', sameip)
+    },
 
   },
   modules: {

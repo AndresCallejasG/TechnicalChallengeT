@@ -4,7 +4,11 @@
           v-show="loadingCustomers"
           type="card-heading, list-item-three-line, card-heading, list-item-three-line"
         >
-        </v-skeleton-loader>   
+        </v-skeleton-loader>
+        <v-card
+            v-show="emptyArray">
+            <v-card-subtitle >You may load some data</v-card-subtitle>
+        </v-card>  
         <v-card
             v-for="(card, i) in customers"
             :key="i"
@@ -27,16 +31,17 @@ export default {
   name: 'CustomersList',
   data: () => ({
       customers : [],
-      loadingCustomers: true
+      loadingCustomers: false,
+      emptyArray : false
   }),
-    mounted() {
-    this.fetchCustomers()
-    
-  },
-  crated(){
+  created(){
+      this.fetchCustomers()
   },
   methods: {
         async fetchCustomers(){
+        
+        this.loadingCustomers = true
+
         var axios = require('axios');
         var data = JSON.stringify({
         query: `query {
@@ -66,13 +71,18 @@ export default {
         .catch(function (error) {
         console.log(error);
         });
+
+        if (this.customers.length) {
+            this.emptyArray = false
+        }else{
+            this.emptyArray = true
+        }
          
         this.loadingCustomers = false
       },
       setSelectedCustomer(customerID){
           this.$store.dispatch('SetSelectedCustomer', customerID)
           this.$store.dispatch('FetchSelectedTransactions')
-          console.log(customerID)
       }
   }  
 }

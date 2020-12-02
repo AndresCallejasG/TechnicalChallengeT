@@ -9,7 +9,11 @@
           v-show="loading"
           type="card-heading, list-item-three-line, card-heading, list-item-three-line"
         >
-        </v-skeleton-loader>  
+        </v-skeleton-loader>
+        <v-card
+            v-show="emptyArray">
+            <v-card-subtitle >There aren't transactions, select another customer</v-card-subtitle>
+        </v-card>  
         <v-card
             v-for="(tran, i) in transactions"
             :key="i"
@@ -17,7 +21,10 @@
             outlined
         >
                 <v-card-title>Transaction {{ tran.transactionID }}</v-card-title>
-                <v-card-subtitle>{{tran.ip}} - {{ tran.device }}</v-card-subtitle>
+                <v-card-subtitle
+                    @click="setSelectedIP(tran.ip)"
+                >
+                {{tran.ip}} - {{ tran.device }}</v-card-subtitle>
                 <v-card-actions>
                     <v-btn
                         color="orange lighten-2"
@@ -65,7 +72,7 @@ export default {
       transactions(){
           return this.$store.state.transactions
       },
-      loading(){
+      emptyArray(){
           var tr = this.$store.state.transactions.length
 
           if (tr === 0) {
@@ -73,6 +80,14 @@ export default {
           }
 
           return false
+      },
+      loading(){
+          return this.$store.state.loadingTransactions
+      },
+  },
+  methods: {
+       setSelectedIP(ip){
+          this.$store.dispatch('FetchSameIp', ip)
       }
   }    
 }

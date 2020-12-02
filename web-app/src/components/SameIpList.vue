@@ -6,8 +6,8 @@
             elevation="2"
             outlined
         >
-            <v-card-title>{{ ipCust.name }}</v-card-title>
-            <v-card-subtitle>ID {{ipCust.customerID}} - {{ ipCust.age }} usd </v-card-subtitle>
+            <v-card-title>{{ ipCust.buyer.name }}</v-card-title>
+            <v-card-subtitle>ID {{ipCust.buyer.customerID}} - {{ ipCust.buyer.age }} years </v-card-subtitle>
 
         </v-card>
     </v-component>
@@ -20,13 +20,13 @@
 export default {
   name: 'SameIPList',
   data: () => ({
-      ipCustomers : [
+      /* ipCustomers : [
           {customerID: "121212", name: "Julian Franco", age: "28"},
           {customerID: "288923", name: "Andres Calejas", age: "25"},
           {customerID: "288923", name: "Andres Calejas", age: "25"},  
           {customerID: "288923", name: "Andres Calejas", age: "25"},  
           {customerID: "288923", name: "Andres Calejas", age: "25"},      
-      ]
+      ] */
   }),
   computed: {
       ipCustomers(){
